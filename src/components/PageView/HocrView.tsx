@@ -76,8 +76,8 @@ function HocrView({
   //   if (!editorValue) setEditorValue(page);
   // }, [page]);
 
-  const valueAdded = (value) => {
-    setEditorValue(value);
+  // const valueAdded = (value) => {
+  // setEditorValue(value);
   };
   // const rteChange = (content, delta, source, editor) => {
   //   console.log(editor.getHTML()); // rich text
