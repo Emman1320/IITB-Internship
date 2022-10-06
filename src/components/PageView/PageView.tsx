@@ -114,12 +114,12 @@ function PageViewer() {
       });
   };
   const onClickSaveFile = () => {
-    const editedText = editorValue.split("</p><p>").join("\n").slice(3, -4);
-    console.log(editedText);
+    console.log(editorValue);
+
     const postEditedTextURL =
       process.env.REACT_APP_SERVER_URL + "/ocr-editor-text";
     axios
-      .post(postEditedTextURL, { text: editedText })
+      .post(postEditedTextURL, { text: editorValue })
       .then((response) => {})
       .catch((error) => {});
   };
@@ -216,7 +216,7 @@ function PageViewer() {
                       }
                     />
                   </Layer>
-                  <HocrLayer
+                  {/* <HocrLayer
                     page={state.hocrPage}
                     dispatch={dispatch}
                     pageImage={state.pageImage}
@@ -225,13 +225,13 @@ function PageViewer() {
                         ? state.pageImage?.curWidth
                         : width) * curZoom
                     }
-                    height={
+                    height={  
                       (state.pageImage?.curHeight !== 0
                         ? state.pageImage?.curHeight
                         : height) * curZoom
                     }
                     hoverId={state.hoverId}
-                  />
+                  /> */}
                 </Stage>
               </div>
             </div>
