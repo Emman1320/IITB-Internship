@@ -40,6 +40,11 @@ function HocrView({
           plugins: exampleSetup({ schema: mySchema }),
         }),
       });
+      setEditorValue(
+        document
+          .querySelector("#editor")
+          ?.innerText.split("Insert\nType...\n⬚\n\n")[1]
+      );
     }
   }, [page]);
 
