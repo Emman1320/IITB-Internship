@@ -47,7 +47,7 @@ function HocrView({
     <div>
       <div
         id="editor"
-        onInput={(event) => {
+        onKeyUp={(event) => {
           setEditorValue(event.target.innerText);
         }}
       ></div>
