@@ -26,7 +26,7 @@ class ImageView extends React.Component<Props, State> {
 		image: null,
 	}; */
 	image = null;
-
+	
 	componentDidUpdate(oldProps) {
 		if (
 			oldProps.pageImage?.urlObject !==

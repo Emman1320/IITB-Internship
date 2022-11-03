@@ -6,7 +6,8 @@ import { addListNodes } from "prosemirror-schema-list";
 import { exampleSetup } from "prosemirror-example-setup";
 import Page from "../../types";
 import "./HocrView.css";
-import { Dispatch, useEffect } from "react";
+import { Dispatch, useEffect, useState } from "react";
+import Loader from "../Loading animation/Spin.svg";
 // import { setHoverId } from "../../reducer/actions";
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
@@ -28,8 +29,11 @@ function HocrView({
   editorValue,
   setEditorValue,
 }: Props) {
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
+
   useEffect(() => {
     if (page) {
+      setIsPageLoaded(true);
       const mySchema = new Schema({
         nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
         marks: schema.spec.marks,
@@ -40,6 +44,7 @@ function HocrView({
           plugins: exampleSetup({ schema: mySchema }),
         }),
       });
+
       setEditorValue(
         document
           .querySelector("#editor")
@@ -52,11 +57,14 @@ function HocrView({
     <div>
       <div
         id="editor"
+        className={isPageLoaded ? "appear" : ""}
         onKeyUp={(event) => {
           setEditorValue(event.target.innerText);
         }}
       ></div>
-      <div id="content">&nbsp;</div>
+      <div className="loadingAnimation">
+        {!isPageLoaded && <img src={Loader} alt="" />}
+      </div>
       {/* <ReactQuill value={editorValue} onChange={valueAdded} /> */}
       {/* <p>{linesEl}</p> */}
     </div>

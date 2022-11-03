@@ -16,6 +16,7 @@ export interface Props {
 }
 
 function ToolBar({ curPageno, dispatch, fnSetCurZoom }: Props) {
+
   const parsed = queryString.parse(window.location.search);
   const imageurl =
     process.env.REACT_APP_SERVER_URL + "/i/b/" + parsed?.b + "/p/" + curPageno;
@@ -44,7 +45,7 @@ function ToolBar({ curPageno, dispatch, fnSetCurZoom }: Props) {
 
         const page: HocrPage = await doOcr(hocrurl);
         // const page = await doOcr(hocrurl);
-		
+
         dispatch(loadHocr(page));
       });
   };

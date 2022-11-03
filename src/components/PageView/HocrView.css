@@ -339,6 +339,7 @@ img.ProseMirror-separator {
   border-radius: 4px;
   border: 2px solid rgba(0, 0, 0, 0.2);
   padding: 5px 0;
+  opacity: 0;
   margin-bottom: 23px;
 }
 
@@ -361,6 +362,22 @@ img.ProseMirror-separator {
 .ProseMirror p {
   margin-bottom: 1em;
 }
-/* #content {
-  display: none;
-} */
+.loadingAnimation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.loadingAnimation img {
+  width: 150px;
+}
+.appear {
+  animation: appear 1s ease forwards;
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

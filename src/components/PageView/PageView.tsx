@@ -28,6 +28,7 @@ import HocrView from "./HocrView";
 import axios from "axios";
 import "./PageView.css";
 import DropDown from "./components/DropDown";
+import Loader from "../Loading animation/Spin.svg";
 
 function PageViewer() {
   const [state, dispatch] = useAppReducer();
@@ -35,12 +36,16 @@ function PageViewer() {
   const parsed = queryString.parse(window.location.search);
   const [curZoom, setCurZoom] = useState(1);
   const [bookDetails, setBookDetails] = useState(null);
-
+  const [imageLoading, setImageLoading] = useState(false);
   const handleZoom = (zoomDelta: int) => {
     setCurZoom(curZoom + zoomDelta);
   };
 
   const [imgMeasureRef, { width, height }] = useMeasure();
+
+  useEffect(() => {
+    setImageLoading(state.pageImage == null);
+  }, [state.pageImage]);
 
   useEffect(() => {
     if (!parsed?.p) {
@@ -55,7 +60,7 @@ function PageViewer() {
     dispatch(changeCurPage(parseInt(parsed.p)));
     //uu10.129.6.78:5000/h/b/1/p/2
     /* const imageurl =
-			process.env.REACT_APP_SERVER_URL +
+			REACT_APP_SERVER_URL +
 			"/i/b/" +
 			parsed?.b +
 			"/p/" +
@@ -156,7 +161,7 @@ function PageViewer() {
                   SandHI
                 </Link>
                 <div>
-                  <Button onClick={onClickSaveFile}>save file</Button>
+                  <button className="saveButton" onClick={onClickSaveFile}>save file</button>
                 </div>
               </div>
             </nav>
@@ -174,16 +179,17 @@ function PageViewer() {
             {/* <button className="text-format-option icon2">Mark Regions</button> */}
           </div>
         </div>
-
         {/* </Link> */}
         {/* <span className="navbar-text px-3 me-auto">
 						{bookDetails?.title}
 					</span> */}
-
         <div className="container-fluid pv-container pt-2 pb-4 px-2">
           <div className="row wh-90 vh-100 border shadow">
             <div className="col-md-6 shadow" ref={imgMeasureRef}>
               <div className="p-3 border pv-pane">
+                <div className="loadingAnimation">
+                  {imageLoading && <img src={Loader} alt="" />}
+                </div>
                 <Stage
                   width={
                     (state.pageImage?.curWidth !== 0
@@ -201,6 +207,7 @@ function PageViewer() {
                       <Text text={state.pageImage?.urlObject} />
                     </Layer>
                   )}
+
                   <Layer>
                     <ImageView
                       pageImage={state.pageImage}
